@@ -1,20 +1,59 @@
-import { ClockHand, HandType } from './clock-hand';
+import { HourHand } from "./hand-types/standard/hour";
+import { MinuteHand } from "./hand-types/standard/minute";
+import { SecondHand } from "./hand-types/standard/second";
+import { MSHand } from "./hand-types/standard/ms";
+import { ClockHand } from "./clock-hand";
 
 export class Clock {
 
+  /**
+   * Construct a base-clock type object
+   *  This will add hands from the "standard" hand package
+   *  Feel free to experiment with different hand types
+   * 
+   * @param {number} radius The radius of the clock
+   */
   constructor(radius) {
     this.radius = radius;
     this.hands = [];
-    this.hands.push(new ClockHand(HandType.HOUR, radius * (2/3), radius / 20));
-    this.hands.push(new ClockHand(HandType.MINUTE, radius * (4/5), radius / 40));
-    this.hands.push(new ClockHand(HandType.SECOND, radius * (4 / 5), radius / 80));
-    this.hands.push(new ClockHand(HandType.MS, radius * (1/5), radius / 160));
+    this.addHand(new HourHand(radius * (2/3), radius / 20));
+    this.addHand(new MinuteHand(radius * (4/5), radius / 40));
+    this.addHand(new SecondHand(radius * (4 / 5), radius / 80));
+    this.addHand(new MSHand(radius * (1/5), radius / 160));
   }
 
+  /**
+   * Add a hand to this clock
+   * 
+   * @param {ClockHand} hand The hand being added to the clock
+   * @throws If the hand passed is not an instance of ClockHand
+   */
+  addHand(hand) {
+    if (hand instanceof ClockHand) {
+      this.hands.push(hand);
+    } else {
+      throw 'ERROR: Invalid Hand Type. You can only add clock-hands to the clock.';
+    }
+  }
+
+  /**
+   * Set the current time of the clock
+   *  This will set the angle of all children hands
+   * 
+   * @param {number} time The number of milliseconds since UNIX Epoch
+   */
   setTime(time) {
     this.hands.forEach(hand => hand.setAngle(time));
   }
 
+  /**
+   * Draw the current clock
+   * 
+   * @param {Object} center The center point of the clock
+   * @param {number} center.x The x-position of the center of the clock
+   * @param {number} center.y The y-position of the center of the clock
+   * @param {createjs.Graphics} graphics The instance of graphics being drawn to
+   */
   draw(center, graphics) {
     // Draw outline of clock
     graphics.setStrokeStyle(2);

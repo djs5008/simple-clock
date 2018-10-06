@@ -1,39 +1,38 @@
-export let HandType = {
-  HOUR: 'HOUR', MINUTE: 'MINUTE', SECOND: 'SECOND', MS: 'MS'
-};
-
 export class ClockHand {
 
-  constructor(type, length, thickness) {
-    this.type = type;
+  /**
+   * Construct the base class for ClockHand
+   *  Expected to be used by child types. Overriding setAngle() and *OPTIONALLY* draw().
+   *  Be sure to accept the same required parameters when overriding
+   * 
+   * @param {number} length The length of the clock hand (used in default draw function)
+   * @param {number} thickness The thickness of the clock hand (used in default draw function)
+   */
+  constructor(length, thickness) {
     this.length = length;
     this.thickness = thickness;
     this.angle = 0;
   }
 
+  /**
+   * Set the angle of the clock hand
+   *  Defaulted to zero and expected to be overriden by child type
+   * 
+   * @param {number} time The current time since UNIX Epoch
+   */
   setAngle(time) {
-    const HR  = (time / (1000 * 60 * 60)) % 12;
-    const MIN = (time / (1000 * 60)) % 60;
-    const SEC = (time / (1000)) % 60;
-    const MS  =  time % 1000;
-    const PI = Math.PI;
-
-    switch (this.type) {
-      case HandType.HOUR:
-        this.angle = (PI / 2) - (((2 * PI) / 12) * HR);
-        break;
-      case HandType.MINUTE:
-        this.angle = (PI / 2) - (((2 * PI) / 60) * MIN);
-        break;
-      case HandType.SECOND:
-        this.angle = (PI / 2) - (((2 * PI) / 60) * SEC);
-        break;
-      case HandType.MS:
-        this.angle = (PI / 2) - (((2 * PI) / 1000) * MS);
-        break;
-    }
+    this.angle = 0;
   }
 
+  /**
+   * Draw the current clock hand
+   *  Override this if clock hands need to be drawn differently
+   * 
+   * @param {Object} center The center point of the clock
+   * @param {number} center.x The x-position of the center of the clock
+   * @param {number} center.y The y-position of the center of the clock
+   * @param {createjs.Graphics} graphics The instance of graphics being drawn to
+   */
   draw(center, graphics) {
     let x1 = center.x;
     let y1 = center.y;
