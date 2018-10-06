@@ -2,4 +2,4 @@
 A simple analog clock made with JavaScript
 
 # Demo
-http://jsfiddle.net/yn1L3efk/
+http://jsfiddle.net/1fdnc2xm/
