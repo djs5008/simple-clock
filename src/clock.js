@@ -5,10 +5,10 @@ export class Clock {
   constructor(radius) {
     this.radius = radius;
     this.hands = [];
-    this.hands.push(new ClockHand(HandType.HOUR, radius * (2/3), 10));
-    this.hands.push(new ClockHand(HandType.MINUTE, radius * (4/5), 5));
-    this.hands.push(new ClockHand(HandType.SECOND, radius * (4 / 5), 2));
-    this.hands.push(new ClockHand(HandType.MS, radius * (1/5), 1));
+    this.hands.push(new ClockHand(HandType.HOUR, radius * (2/3), radius / 20));
+    this.hands.push(new ClockHand(HandType.MINUTE, radius * (4/5), radius / 40));
+    this.hands.push(new ClockHand(HandType.SECOND, radius * (4 / 5), radius / 80));
+    this.hands.push(new ClockHand(HandType.MS, radius * (1/5), radius / 160));
   }
 
   setTime(time) {
@@ -50,7 +50,7 @@ export class Clock {
 
       // set stroke size based on if its an hour or minute
       if (x % (360/12) === 0) {
-        graphics.setStrokeStyle(4);
+        graphics.setStrokeStyle(this.radius / 40);
         size = bigLen;
       } else {
         graphics.setStrokeStyle(1);
