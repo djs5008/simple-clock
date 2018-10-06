@@ -5,6 +5,7 @@ export class MSHand extends ClockHand {
   /**
    * Construct a new MSHand type
    *  Used in the standard package of clock-hands
+   *  Represents the current millisecond of the current time
    * 
    * @param {number} length 
    * @param {number} thickness 
