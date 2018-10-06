@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/djs5008/simple-clock.git"
   },
-  "author": "Dan Schmitt (djs5008)",
+  "author": "Dan Schmitt (djs5008); Brian Taylor (bct8925)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/djs5008/simple-clock/issues"
